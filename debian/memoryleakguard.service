@@ -1,0 +1,28 @@
+[Unit]
+Description=LeakShield Memory Leak Detection and Prevention
+Documentation=https://github.com/root0emir/leakshield
+After=multi-user.target
+Before=shutdown.target
+ConditionPathExists=/sys/module/memoryleakguard
+DefaultDependencies=no
+
+[Service]
+Type=simple
+ExecStart=/bin/sh -c 'echo "LeakShield MemoryLeakGuard monitoring active" > /dev/kmsg'
+RemainAfterExit=yes
+Restart=on-failure
+RestartSec=5
+StartLimitInterval=0
+
+# Security settings
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+NoNewPrivileges=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+MemoryDenyWriteExecute=true
+RestrictRealtime=true
+
+[Install]
+WantedBy=multi-user.target 

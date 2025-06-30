@@ -1,0 +1,34 @@
+PACKAGE_NAME="leakshield"
+PACKAGE_VERSION="1.0"
+
+# Process Credential Protection
+BUILT_MODULE_NAME[0]="pcp"
+BUILT_MODULE_LOCATION[0]="src"
+DEST_MODULE_LOCATION[0]="/kernel/security"
+
+# Memory Leak Detection
+BUILT_MODULE_NAME[1]="memoryleakguard"
+BUILT_MODULE_LOCATION[1]="src"
+DEST_MODULE_LOCATION[1]="/kernel/security"
+
+# Privacy Protection
+BUILT_MODULE_NAME[2]="privacyguard"
+BUILT_MODULE_LOCATION[2]="src"
+DEST_MODULE_LOCATION[2]="/kernel/security"
+
+# DKMS Configuration
+AUTOINSTALL="yes"
+REMAKE_INITRD="yes"
+MAKE[0]="make -C ${kernel_source_dir} M=${dkms_tree}/${PACKAGE_NAME}/${PACKAGE_VERSION}/build modules"
+CLEAN="make -C ${kernel_source_dir} M=${dkms_tree}/${PACKAGE_NAME}/${PACKAGE_VERSION}/build clean"
+
+# Kernel hooks for version changes
+POST_INSTALL="debian/postinst.sh"
+POST_REMOVE="debian/postrm.sh"
+PRE_BUILD="debian/prebuild.sh"
+POST_BUILD="debian/postbuild.sh"
+
+# Build options - Support both 5.x and 6.x kernels
+BUILD_EXCLUSIVE_KERNEL="^[5-6]\."
+BUILD_MATCHES[0]="^[5-6]\..*"
+MODULES_CONF[0]="/etc/modules-load.d/leakshield.conf" 

@@ -1,0 +1,38 @@
+Source: leakshield
+Section: kernel
+Priority: optional
+Maintainer: root0emir <root0emir@protonmail.com>
+Build-Depends: debhelper-compat (= 13), dkms
+Standards-Version: 4.5.1
+
+Package: leakshield
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, systemd
+Description: LeakShield - Advanced Kernel Security and Privacy Suite
+ Enterprise-grade security and privacy protection suite for Debian systems.
+ .
+ Features:
+  * Process Credential Protection (PCP)
+  * Memory Leak Detection (MemoryLeakGuard)
+  * Privacy Protection (PrivacyGuard)
+
+Package: leakshield-pcp
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, systemd, leakshield
+Description: LeakShield Process Credential Protection Module
+ Kernel module that protects process credentials and prevents
+ privilege escalation attacks using red-black tree tracking.
+
+Package: leakshield-memoryleakguard
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, systemd, leakshield
+Description: LeakShield Memory Leak Detection Module
+ Kernel module that detects and prevents memory leaks using
+ advanced tracking and analysis techniques.
+
+Package: leakshield-privacyguard
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, systemd, leakshield
+Description: LeakShield Privacy Protection Module
+ Kernel module that enhances system privacy by controlling
+ information disclosure and protecting sensitive data. 

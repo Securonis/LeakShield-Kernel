@@ -1,0 +1,21 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@ --with dkms
+
+override_dh_install:
+	# Install source files
+	dh_install src/* usr/src/leakshield-1.0/
+
+	# Install systemd services
+	dh_install debian/pcp.service lib/systemd/system/
+	dh_install debian/memoryleakguard.service lib/systemd/system/
+	dh_install debian/privacyguard.service lib/systemd/system/
+
+override_dh_dkms:
+	dh_dkms -V 1.0
+
+override_dh_auto_install:
+override_dh_auto_build:
+override_dh_auto_clean:
+override_dh_auto_configure: 

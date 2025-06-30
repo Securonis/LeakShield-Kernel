@@ -1,0 +1,28 @@
+[Unit]
+Description=LeakShield Privacy Guard - Memory and Data Protection
+Documentation=https://github.com/root0emir/leakshield
+After=multi-user.target
+Before=shutdown.target
+ConditionPathExists=/sys/module/privacyguard
+DefaultDependencies=no
+
+[Service]
+Type=simple
+ExecStart=/bin/sh -c 'echo "LeakShield PrivacyGuard protection active" > /dev/kmsg'
+RemainAfterExit=yes
+Restart=on-failure
+RestartSec=5
+StartLimitInterval=0
+
+# Security settings
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+NoNewPrivileges=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+MemoryDenyWriteExecute=true
+RestrictRealtime=true
+
+[Install]
+WantedBy=multi-user.target 
